@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stok Buku - Cendekia Bookstore</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Cendekia <span>Bookstore</span></h1>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="stok.html" class="active">Stok</a>
+        <a href="checkout.html">Pemesanan</a>
+        <a href="tracking.html">Tracking</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="judul-halaman">
+      <h1>Informasi Stok/Katalog Buku</h1>
+      <p>Data buku diambil dari variabel <em>dataKatalogBuku</em> pada file data.js.</p>
+    </div>
+
+    <section class="card">
+
+      <!-- Kolom pencarian -->
+      <div class="alat-cari">
+        <div class="kolom-cari">
+          <label for="cariBuku">Cari nama barang atau kode</label>
+          <input type="text" id="cariBuku" placeholder="Contoh: manajemen atau EKMA4002">
+        </div>
+      </div>
+      <div class="setelah-float"></div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nama Barang</th>
+            <th>Jenis</th>
+            <th>Harga</th>
+            <th>Stok</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="isiTabelBuku">
+          <!-- diisi oleh JavaScript -->
+        </tbody>
+      </table>
+
+      <!-- Form tambah buku baru -->
+      <div class="form-tambah">
+        <h2>Tambah Stok Buku</h2>
+        <p>Isi data buku baru, lalu tekan tombol Tambah.</p>
+
+        <form id="formTambahBuku">
+
+          <div class="kolom-dua">
+            <div class="baris-form">
+              <label for="kodeBaru">Kode barang *</label>
+              <input type="text" id="kodeBaru" placeholder="Contoh: EKMA4002">
+            </div>
+
+            <div class="baris-form">
+              <label for="namaBaru">Nama barang *</label>
+              <input type="text" id="namaBaru" placeholder="Judul buku">
+            </div>
+
+            <div class="baris-form">
+              <label for="jenisBaru">Jenis barang</label>
+              <input type="text" id="jenisBaru" placeholder="Contoh: Buku Ajar">
+            </div>
+          </div>
+
+          <div class="kolom-dua-terakhir">
+            <div class="baris-form">
+              <label for="edisiBaru">Edisi</label>
+              <input type="number" id="edisiBaru" placeholder="1">
+            </div>
+
+            <div class="baris-form">
+              <label for="hargaBaru">Harga (Rp) *</label>
+              <input type="number" id="hargaBaru" placeholder="180000">
+            </div>
+
+            <div class="baris-form">
+              <label for="stokBaru">Jumlah stok *</label>
+              <input type="number" id="stokBaru" placeholder="100">
+            </div>
+          </div>
+
+          <div class="setelah-float"></div>
+
+          <p class="pesan" id="pesanBuku"></p>
+
+          <button type="button" class="tombol tombol-kuning" id="tombolTambahBuku">Tambah</button>
+          <button type="reset" class="tombol tombol-putih">Reset</button>
+        </form>
+      </div>
+
+    </section>
+
+  </div>
+
+  <footer>
+    <p>Cendekia Bookstore - UTS Pemrograman Web<br>
+    Aidi Syahdan Firdaus - 312510089 - Teknik Informatika UPB</p>
+  </footer>
+
+</body>
+</html>

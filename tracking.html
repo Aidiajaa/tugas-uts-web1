@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracking Pengiriman - Cendekia Bookstore</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Cendekia <span>Bookstore</span></h1>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="stok.html">Stok</a>
+        <a href="checkout.html">Pemesanan</a>
+        <a href="tracking.html" class="active">Tracking</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="judul-halaman">
+      <h1>Informasi Pengiriman</h1>
+      <p>Masukkan nomor Delivery Order untuk melihat status pengiriman.</p>
+    </div>
+
+    <!-- Form pencarian nomor DO -->
+    <section class="card">
+      <form id="formTracking">
+        <div class="kotak-cari-do">
+          <label for="nomorDO">Nomor Delivery Order</label>
+          <input type="text" id="nomorDO" placeholder="DO20260115001">
+          <button type="button" class="tombol tombol-kuning" id="tombolCari">Cari</button>
+        </div>
+      </form>
+      <div class="setelah-float"></div>
+
+      <p class="pesan" id="pesanTracking"></p>
+
+      <p><small>Nomor contoh: 20230012 dan 20230013</small></p>
+    </section>
+
+    <!-- Hasil pencarian, disembunyikan sebelum tombol Cari ditekan -->
+    <section class="card hasil-tracking" id="hasilTracking">
+      <h2>Status Pengiriman</h2>
+
+      <!-- Progress bar -->
+      <div class="progress-luar">
+        <div class="progress-dalam" id="progressBar">0%</div>
+      </div>
+
+      <!-- Detail pengiriman -->
+      <div class="baris-info">
+        <div class="label">Nama pemesan</div>
+        <div class="nilai" id="namaPemesan"></div>
+      </div>
+
+      <div class="baris-info">
+        <div class="label">Status pengiriman</div>
+        <div class="nilai" id="statusKirim"></div>
+      </div>
+
+      <div class="baris-info">
+        <div class="label">Detail ekspedisi</div>
+        <div class="nilai" id="ekspedisi"></div>
+      </div>
+
+      <div class="baris-info">
+        <div class="label">Tanggal kirim</div>
+        <div class="nilai" id="tanggalKirim"></div>
+      </div>
+
+      <div class="baris-info">
+        <div class="label">Jenis paket</div>
+        <div class="nilai" id="jenisPaket"></div>
+      </div>
+
+      <div class="baris-info">
+        <div class="label">Total pembayaran</div>
+        <div class="nilai" id="totalBayar"></div>
+      </div>
+
+      <!-- Baris alamat hanya muncul untuk pesanan yang punya alamat -->
+      <div class="baris-info" id="barisAlamat" style="display: none;">
+        <div class="label">Alamat tujuan</div>
+        <div class="nilai" id="alamatKirim"></div>
+      </div>
+
+      <!-- Tahapan pengiriman dalam bentuk list -->
+      <h3>Riwayat Perjalanan Paket</h3>
+      <ul class="daftar-tahap" id="daftarTahap">
+        <!-- diisi oleh JavaScript -->
+      </ul>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>Cendekia Bookstore - UTS Pemrograman Web<br>
+    Aidi Syahdan Firdaus - 312510089 - Teknik Informatika UPB</p>
+  </footer>
+
+</body>
+</html>

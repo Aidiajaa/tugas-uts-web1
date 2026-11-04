@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pemesanan - Cendekia Bookstore</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Cendekia <span>Bookstore</span></h1>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="stok.html">Stok</a>
+        <a href="checkout.html" class="active">Pemesanan</a>
+        <a href="tracking.html">Tracking</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="judul-halaman">
+      <h1>Pemesanan Buku</h1>
+      <p>Pilih buku, tentukan jumlah, lalu isi data pemesan dan pembayaran.</p>
+    </div>
+
+    <!-- 1. Memilih buku -->
+    <section class="card">
+      <h2>1. Pilih Buku</h2>
+
+      <div class="kolom-dua">
+        <div class="baris-form">
+          <label for="pilihBuku">Buku</label>
+          <select id="pilihBuku">
+            <option value="">-- Pilih buku --</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="kolom-dua-terakhir">
+        <div class="baris-form">
+          <label for="jumlahBeli">Jumlah</label>
+          <input type="number" id="jumlahBeli" value="1" min="1">
+        </div>
+      </div>
+
+      <div class="setelah-float"></div>
+
+      <p class="pesan" id="pesanKeranjang"></p>
+
+      <button type="button" class="tombol tombol-kuning" id="tombolTambah">Tambah ke Keranjang</button>
+    </section>
+
+    <!-- 2. Keranjang pesanan -->
+    <section class="card">
+      <h2>2. Buku yang Dipesan</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nama Barang</th>
+            <th>Harga</th>
+            <th>Jumlah</th>
+            <th>Subtotal</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="isiKeranjang">
+          <!-- diisi oleh JavaScript -->
+        </tbody>
+      </table>
+
+      <div class="keranjang-total">
+        <p>Subtotal <span id="subtotal">Rp0</span></p>
+        <p>Ongkos kirim <span id="ongkir">Rp0</span></p>
+        <p class="baris-total">Total bayar <span id="totalBayar">Rp0</span></p>
+      </div>
+
+      <p><small>Belanja minimal Rp200.000 gratis ongkos kirim.</small></p>
+    </section>
+
+    <!-- 3. Data pemesan dan pembayaran -->
+    <section class="card">
+      <h2>3. Data Pemesan dan Pembayaran</h2>
+
+      <form id="formPesanan" novalidate>
+
+        <div class="kolom-dua">
+          <div class="baris-form">
+            <label for="namaPemesan">Nama pemesan *</label>
+            <input type="text" id="namaPemesan" placeholder="Nama lengkap">
+          </div>
+
+          <div class="baris-form">
+            <label for="emailPemesan">Email *</label>
+            <input type="email" id="emailPemesan" placeholder="nama@mail.com">
+          </div>
+
+          <div class="baris-form">
+            <label for="teleponPemesan">Nomor telepon *</label>
+            <input type="text" id="teleponPemesan" placeholder="081234567890">
+          </div>
+        </div>
+
+        <div class="kolom-dua-terakhir">
+          <div class="baris-form">
+            <label for="alamatPemesan">Alamat lengkap *</label>
+            <textarea id="alamatPemesan" placeholder="Jalan, nomor rumah, kota"></textarea>
+          </div>
+
+          <div class="baris-form">
+            <label for="pilihEkspedisi">Ekspedisi</label>
+            <select id="pilihEkspedisi">
+              <option value="JNE">JNE - Rp 15.000</option>
+              <option value="Pos Indonesia">Pos Indonesia - Rp 18.000</option>
+              <option value="SiCepat">SiCepat - Rp 13.000</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="setelah-float"></div>
+
+        <div class="baris-form">
+          <label>Metode pembayaran</label>
+          <label class="pilihan"><input type="radio" name="metode" value="Transfer Bank" checked> Transfer Bank</label>
+          <label class="pilihan"><input type="radio" name="metode" value="E-Wallet"> E-Wallet</label>
+          <label class="pilihan"><input type="radio" name="metode" value="COD"> COD</label>
+        </div>
+
+        <p class="pesan" id="pesanPesanan"></p>
+
+        <button type="submit" class="tombol tombol-kuning">Buat Pesanan</button>
+      </form>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>Cendekia Bookstore - UTS Pemrograman Web<br>
+    Aidi Syahdan Firdaus - 312510089 - Teknik Informatika UPB</p>
+  </footer>
+
+  <script>
+    // Kalau ekspedisi diganti, total ongkir langsung dihitung ulang
+    document.getElementById("pilihEkspedisi").addEventListener("change", function () {
+      tampilkanKeranjang();
+    });
+  </script>
+</body>
+</html>

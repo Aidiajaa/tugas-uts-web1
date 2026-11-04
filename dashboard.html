@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Cendekia Bookstore</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+
+  <!-- CSS internal: hanya dipakai halaman dashboard -->
+  <style>
+    .info-jam {
+      font-size: 13px;
+      color: #ccd6e4;
+    }
+
+    .menu {
+      border-left: 4px solid #f6a821;
+    }
+
+    .ringkasan {
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .ringkasan .kotak {
+      float: left;
+      width: 31.3%;
+      margin-right: 3%;
+      box-sizing: border-box;
+      background-color: #ffffff;
+      border: 1px solid #dddddd;
+      border-radius: 6px;
+      padding: 15px;
+    }
+
+    .ringkasan .kotak-terakhir {
+      margin-right: 0;
+    }
+
+    .ringkasan .angka {
+      font-size: 20px;
+      font-weight: bold;
+      color: #10233f;
+    }
+
+    .ringkasan .keterangan {
+      font-size: 12px;
+      color: #777777;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header dan menu navigasi -->
+  <header>
+    <div class="container">
+      <h1>Cendekia <span>Bookstore</span></h1>
+      <nav>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="stok.html">Stok</a>
+        <a href="checkout.html">Pemesanan</a>
+        <a href="tracking.html">Tracking</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Greeting berdasarkan waktu lokal -->
+    <section class="sapaan">
+      <h1 id="sapaan">Selamat datang!</h1>
+      <p id="jamSekarang" class="info-jam"></p>
+    </section>
+
+    <div class="judul-halaman">
+      <h2>Menu Utama</h2>
+      <p>Pilih menu di bawah ini.</p>
+    </div>
+
+    <!-- Empat menu navigasi -->
+    <section class="daftar-menu">
+
+      <a href="stok.html" class="menu">
+        <h3>Informasi Stok/Katalog</h3>
+        <p>Melihat daftar buku, harga, dan jumlah stok.</p>
+      </a>
+
+      <a href="tracking.html" class="menu">
+        <h3>Tracking Pengiriman</h3>
+        <p>Melacak paket dengan nomor Delivery Order.</p>
+      </a>
+
+      <a href="#laporan" class="menu">
+        <h3>Laporan Pemesanan</h3>
+        <p>Melihat jumlah pesanan dan total pemasukan.</p>
+      </a>
+
+      <a href="#histori" class="menu menu-terakhir">
+        <h3>Histori Transaksi</h3>
+        <p>Melihat daftar transaksi yang sudah terjadi.</p>
+      </a>
+
+    </section>
+
+    <div class="setelah-float"></div>
+
+    <div class="card">
+      <p style="margin:0;">Mau memesan buku? Buka halaman <a href="checkout.html">Pemesanan</a>.</p>
+    </div>
+
+    <!-- LAPORAN PEMESANAN -->
+    <section class="card" id="laporan">
+      <h2>Laporan Pemesanan</h2>
+
+      <div class="ringkasan">
+        <div class="kotak">
+          <p class="angka" id="jumlahPesanan">0</p>
+          <p class="keterangan">Total pesanan</p>
+        </div>
+        <div class="kotak">
+          <p class="angka" id="totalPemasukan">Rp0</p>
+          <p class="keterangan">Total pemasukan</p>
+        </div>
+        <div class="kotak kotak-terakhir">
+          <p class="angka" id="jumlahDiproses">0</p>
+          <p class="keterangan">Pesanan belum diterima</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- HISTORI TRANSAKSI -->
+    <section class="card" id="histori">
+      <h2>Histori Transaksi</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nomor DO</th>
+            <th>Tanggal Kirim</th>
+            <th>Pemesan</th>
+            <th>Paket &amp; Ekspedisi</th>
+            <th>Total</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="isiPesanan">
+          <!-- diisi oleh JavaScript -->
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>Cendekia Bookstore - UTS Pemrograman Web<br>
+    Aidi Syahdan Firdaus - 312510089 - Teknik Informatika UPB</p>
+  </footer>
+
+  <!-- Script khusus dashboard: jam, tabel histori, dan ringkasan laporan -->
+  <script>
+    // 1. Menampilkan jam sekarang
+    var sekarang = new Date();
+    var jam = sekarang.getHours();
+    var menit = sekarang.getMinutes();
+    if (menit < 10) { menit = "0" + menit; }
+    document.getElementById("jamSekarang").innerHTML =
+      "Waktu sekarang: " + jam + ":" + menit + " WIB";
+
+    // 2. Mengisi tabel histori transaksi dan menghitung laporan
+    var tabel = document.getElementById("isiPesanan");
+    var totalPemasukan = 0;
+    var jumlahDiproses = 0;
+
+    // semuaPesanan() mengambil data dari data.js ditambah pesanan baru
+    var daftarPesanan = semuaPesanan();
+
+    for (var i = 0; i < daftarPesanan.length; i++) {
+      var pesanan = daftarPesanan[i];
+
+      // total pada data.js berbentuk teks, jadi diubah dulu ke angka
+      var totalAngka = ambilAngka(pesanan.total);
+
+      // menghitung total pemasukan
+      totalPemasukan = totalPemasukan + totalAngka;
+
+      // menghitung pesanan yang belum diterima
+      if (pesanan.status != "Diterima") {
+        jumlahDiproses = jumlahDiproses + 1;
+      }
+
+      // membuat satu baris tabel
+      var baris = document.createElement("tr");
+
+      var selDo = document.createElement("td");
+      selDo.innerHTML = pesanan.nomorDO;
+
+      var selTanggal = document.createElement("td");
+      selTanggal.innerHTML = formatTanggal(pesanan.tanggalKirim);
+
+      var selNama = document.createElement("td");
+      selNama.innerHTML = pesanan.nama;
+
+      var selPaket = document.createElement("td");
+      selPaket.innerHTML = pesanan.paket + "<br><small>" + pesanan.ekspedisi + "</small>";
+
+      var selTotal = document.createElement("td");
+      selTotal.innerHTML = pesanan.total;
+
+      var selStatus = document.createElement("td");
+      selStatus.innerHTML = "<span class='badge badge-biru'>" + pesanan.status + "</span>";
+
+      baris.appendChild(selDo);
+      baris.appendChild(selTanggal);
+      baris.appendChild(selNama);
+      baris.appendChild(selPaket);
+      baris.appendChild(selTotal);
+      baris.appendChild(selStatus);
+
+      tabel.appendChild(baris);
+    }
+
+    // 3. Menampilkan hasil perhitungan laporan
+    document.getElementById("jumlahPesanan").innerHTML = daftarPesanan.length;
+    document.getElementById("totalPemasukan").innerHTML = formatRupiah(totalPemasukan);
+    document.getElementById("jumlahDiproses").innerHTML = jumlahDiproses;
+  </script>
+</body>
+</html>

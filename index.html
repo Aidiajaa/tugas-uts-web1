@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Cendekia Bookstore</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</head>
+<body class="login-body">
+
+  <!-- Struktur semantik: main > section > header/form/footer -->
+  <main>
+    <section class="kotak-login" aria-labelledby="judulLogin">
+      <header>
+        <h1 id="judulLogin">Cendekia <span>Bookstore</span></h1>
+        <p class="sub">Masuk untuk memesan buku kuliahmu</p>
+      </header>
+
+      <!-- Form login: email dan password -->
+      <form id="formLogin">
+        <div class="baris-form">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="nama@mail.com">
+        </div>
+
+        <div class="baris-form">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Password">
+          <p class="lihat-password"><small><a href="#" id="lihatPassword">Lihat password</a></small></p>
+        </div>
+
+        <!-- Pesan kesalahan dari JavaScript -->
+        <p class="pesan" id="pesanLogin"></p>
+
+        <button type="submit" class="tombol tombol-kuning tombol-penuh">Login</button>
+      </form>
+
+      <footer class="bawah">
+        <a href="#" id="tombolLupa">Lupa Password</a> |
+        <a href="#" id="tombolDaftar">Daftar</a>
+      </footer>
+
+      <!-- Info akun untuk mencoba aplikasi -->
+      <div class="info-akun">
+        Akun dari data.js:<br>
+        rina@gmail.com / rina123<br>
+        agus@gmail.com / agus123<br>
+        siti@gmail.com / siti123 (Admin)
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal box Lupa Password -->
+  <div id="modalLupa" class="modal" style="display: none;">
+    <div class="kotak-modal">
+      <h2>Lupa Password</h2>
+      <p>Masukkan email yang terdaftar, lalu password akan dikirim ke email tersebut.</p>
+
+      <div class="baris-form">
+        <label for="emailLupa">Email</label>
+        <input type="email" id="emailLupa" placeholder="nama@mail.com">
+      </div>
+
+      <p class="pesan" id="pesanLupa"></p>
+
+      <button type="button" class="tombol tombol-kuning" id="kirimLupa">Kirim</button>
+      <button type="button" class="tombol tombol-putih" id="tutupLupa">Tutup</button>
+    </div>
+  </div>
+
+  <!-- Modal box Daftar -->
+  <div id="modalDaftar" class="modal" style="display: none;">
+    <div class="kotak-modal">
+      <h2>Daftar Akun</h2>
+      <p>Isi data berikut untuk membuat akun baru.</p>
+
+      <div class="baris-form">
+        <label for="namaDaftar">Nama lengkap</label>
+        <input type="text" id="namaDaftar" placeholder="Nama lengkap">
+      </div>
+
+      <div class="baris-form">
+        <label for="emailDaftar">Email</label>
+        <input type="email" id="emailDaftar" placeholder="nama@mail.com">
+      </div>
+
+      <div class="baris-form">
+        <label for="passwordDaftar">Password</label>
+        <input type="password" id="passwordDaftar" placeholder="Minimal 6 karakter">
+      </div>
+
+      <p class="pesan" id="pesanDaftar"></p>
+
+      <button type="button" class="tombol tombol-kuning" id="simpanDaftar">Daftar</button>
+      <button type="button" class="tombol tombol-putih" id="tutupDaftar">Tutup</button>
+    </div>
+  </div>
+
+  <script>
+    /* Kode kecil untuk membuka dan menutup modal box pada halaman login.
+       Modal ditampilkan dengan mengubah properti display lewat JavaScript. */
+    document.getElementById("tombolLupa").addEventListener("click", function (e) {
+      e.preventDefault();
+      document.getElementById("modalLupa").style.display = "block";
+    });
+
+    document.getElementById("tutupLupa").addEventListener("click", function () {
+      document.getElementById("modalLupa").style.display = "none";
+    });
+
+    document.getElementById("tombolDaftar").addEventListener("click", function (e) {
+      e.preventDefault();
+      document.getElementById("modalDaftar").style.display = "block";
+    });
+
+    document.getElementById("tutupDaftar").addEventListener("click", function () {
+      document.getElementById("modalDaftar").style.display = "none";
+    });
+
+    /* Tombol kirim pada modal Lupa Password */
+    document.getElementById("kirimLupa").addEventListener("click", function () {
+      var email = document.getElementById("emailLupa").value;
+      var pesan = document.getElementById("pesanLupa");
+
+      if (email == "") {
+        pesan.innerHTML = "Email wajib diisi.";
+        pesan.style.color = "#d64545";
+        return;
+      }
+
+      alert("Link reset password sudah dikirim ke " + email + " (simulasi).");
+      document.getElementById("modalLupa").style.display = "none";
+    });
+
+    /* Tombol daftar pada modal Daftar */
+    document.getElementById("simpanDaftar").addEventListener("click", function () {
+      var nama = document.getElementById("namaDaftar").value;
+      var email = document.getElementById("emailDaftar").value;
+      var password = document.getElementById("passwordDaftar").value;
+      var pesan = document.getElementById("pesanDaftar");
+
+      if (nama == "" || email == "" || password == "") {
+        pesan.innerHTML = "Semua kolom wajib diisi.";
+        pesan.style.color = "#d64545";
+        return;
+      }
+
+      if (password.length < 6) {
+        pesan.innerHTML = "Password minimal 6 karakter.";
+        pesan.style.color = "#d64545";
+        return;
+      }
+
+      alert("Pendaftaran berhasil. Silakan login dengan email " + email + ".");
+      document.getElementById("modalDaftar").style.display = "none";
+    });
+  </script>
+</body>
+</html>
